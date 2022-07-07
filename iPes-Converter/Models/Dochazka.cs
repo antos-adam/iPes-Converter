@@ -11,7 +11,7 @@ namespace DochazkaAPI.Models
         public int IdDoch { get; set; }
         public short IdZam { get; set; }
         [ForeignKey("IdZam")]
-        public Zamestnanec? Id { get; set; }
+        public Zamestnanec? Zamestnanec { get; set; }
         public short IdOdbor { get; set; }
         public short IdUdalosti { get; set; }
         [ForeignKey("IdUdalosti")]

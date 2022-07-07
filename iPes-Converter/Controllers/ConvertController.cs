@@ -4,6 +4,7 @@ using iPes_Converter.ModelsOld;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace iPes_Converter.Controllers
 {
@@ -216,23 +217,64 @@ namespace iPes_Converter.Controllers
         public string RezervaceAutConvert()
         {
             List<ModelsOld.Rezaut> Rezervace = _oldContext.Rezauts.ToList();
-            foreach (ModelsOld.Rezaut rez in Rezervace)
+            using (var transaction = _newContext.Database.BeginTransaction())
             {
-                using (var transaction = _newContext.Database.BeginTransaction())
+                _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Rezaut] ON");
+                int i = 0;
+                foreach (ModelsOld.Rezaut rez in Rezervace)
                 {
                     DochazkaAPI.Models.Rezauta newRez = new()
                     { Cesta = rez.Cesta, Dulezitost = rez.Dulezitost, Duvod = rez.Duvod, IdAuta = rez.IdAuta, IdOdbor = rez.IdOdbor, IdRezerv = rez.IdRezerv, IdRidic = rez.IdRidic, IdSpolc1 = rez.IdSpolc1, IdSpolc2 = rez.IdSpolc2, IdSpolc3 = rez.IdSpolc3, IdSpolc4 = rez.IdSpolc4, IdSpolc5 = rez.IdSpolc5, IdZam = rez.IdZam, OdpRead = rez.OdpRead, Pozadavky = rez.Pozadavky, Poznamky = rez.Poznamky, RezervDo = rez.RezervDo, RezervOd = rez.RezervOd, Stavrez = rez.Stavrez, ZamDele = rez.ZamDele, Zmenaterm = rez.Zmenaterm };
 
-                    _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Rezaut] ON");
                     _newContext.Add(newRez);
-
-                    _newContext.SaveChanges();
-
-                    _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Rezaut] OFF");
-
-                    transaction.Commit();
+                    i++;
+                    Debug.WriteLine(i);
                 }
 
+                _newContext.SaveChanges();
+
+                _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Rezaut] OFF");
+
+                transaction.Commit();
+            }
+
+            return "Done";
+        }
+
+        [HttpGet("Dochazka")]
+        public string DochazkaConvert()
+        {
+            List<ModelsOld.Dochazka> Dochazka = _oldContext.Dochazkas.ToList();
+            using (var transaction = _newContext.Database.BeginTransaction())
+            {
+                _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Dochazka] ON");
+                int i = 0;
+                foreach (ModelsOld.Dochazka doch in Dochazka)
+                {
+                    DochazkaAPI.Models.Dochazka newDoch = new()
+                    { 
+                        IdDoch = doch.IdDoch, 
+                        IdOdbor = doch.IdOdbor, 
+                        IdUdalosti = doch.IdUdalosti, 
+                        IdZam = doch.IdZam, 
+                        Konec = doch.Konec, 
+                        Kvedkon = doch.Kvedkon,
+                        Kvedzac = doch.Kvedzac,
+                        Pocpracdnu = (double?)doch.Pocpracdnu,
+                        RecKon = doch.RecKon,
+                        RecZac = doch.RecZac,
+                        Zacatek = doch.Zacatek
+                    };
+
+                    _newContext.Add(newDoch);
+                    i++;
+                    Debug.WriteLine(i);
+                }
+                _newContext.SaveChanges();
+
+                _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Dochazka] OFF");
+
+                transaction.Commit();
 
             }
 
