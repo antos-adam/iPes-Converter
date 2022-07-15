@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DochazkaAPI.Models
+namespace iPes_Converter.Models
 {
     public partial class PracdenRok
     {
         [Key]
-        public int PracDenId { get; set; }
         public int Rok { get; set; }
         public int Mes01 { get; set; }
         public int Mes02 { get; set; }

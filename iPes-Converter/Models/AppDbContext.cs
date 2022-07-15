@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DochazkaAPI.Models
+namespace iPes_Converter.Models
 {
     public partial class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
+            Database.SetCommandTimeout(15000000);
         }
 
         public virtual DbSet<Auto>? Auta { get; set; }

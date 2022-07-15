@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DochazkaAPI.Models
+namespace iPes_Converter.Models
 {
+    [Index(nameof(DomenaPrihlasovaciJmeno))]
     public partial class Zamestnanec
     {
         [Key]

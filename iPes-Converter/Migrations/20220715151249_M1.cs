@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DochazkaAPI.Migrations
+namespace iPes_Converter.Migrations
 {
     public partial class M1 : Migration
     {
@@ -70,9 +70,8 @@ namespace DochazkaAPI.Migrations
                 name: "Pracdny",
                 columns: table => new
                 {
-                    PracDenId = table.Column<int>(type: "int", nullable: false)
+                    Rok = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Rok = table.Column<int>(type: "int", nullable: false),
                     Mes01 = table.Column<int>(type: "int", nullable: false),
                     Mes02 = table.Column<int>(type: "int", nullable: false),
                     Mes03 = table.Column<int>(type: "int", nullable: false),
@@ -88,7 +87,7 @@ namespace DochazkaAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pracdny", x => x.PracDenId);
+                    table.PrimaryKey("PK_Pracdny", x => x.Rok);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,7 +144,7 @@ namespace DochazkaAPI.Migrations
                     Prijmeni = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Jmeno = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Titul = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DomenaPrihlasovaciJmeno = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DomenaPrihlasovaciJmeno = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Denuvazek = table.Column<double>(type: "float", nullable: false),
                     Mesuvazek = table.Column<double>(type: "float", nullable: true),
                     ZobrazVKontPritom = table.Column<bool>(type: "bit", nullable: true),
@@ -247,6 +246,28 @@ namespace DochazkaAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RoleZamestnancu",
+                columns: table => new
+                {
+                    IdRoleZam = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdZam = table.Column<short>(type: "smallint", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    Agenda = table.Column<int>(type: "int", nullable: false),
+                    VychoziRole = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleZamestnancu", x => x.IdRoleZam);
+                    table.ForeignKey(
+                        name: "FK_RoleZamestnancu_Zamestnanci_IdZam",
+                        column: x => x.IdZam,
+                        principalTable: "Zamestnanci",
+                        principalColumn: "IdZam",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Dochazka_IdUdalosti",
                 table: "Dochazka",
@@ -258,6 +279,16 @@ namespace DochazkaAPI.Migrations
                 column: "IdZam");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dochazka_Konec",
+                table: "Dochazka",
+                column: "Konec");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dochazka_Zacatek",
+                table: "Dochazka",
+                column: "Zacatek");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rezaut_IdAuta",
                 table: "Rezaut",
                 column: "IdAuta");
@@ -266,6 +297,16 @@ namespace DochazkaAPI.Migrations
                 name: "IX_Rezaut_IdZam",
                 table: "Rezaut",
                 column: "IdZam");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleZamestnancu_IdZam",
+                table: "RoleZamestnancu",
+                column: "IdZam");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zamestnanci_DomenaPrihlasovaciJmeno",
+                table: "Zamestnanci",
+                column: "DomenaPrihlasovaciJmeno");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Zamestnanci_IdOdbor",
@@ -286,6 +327,9 @@ namespace DochazkaAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rezaut");
+
+            migrationBuilder.DropTable(
+                name: "RoleZamestnancu");
 
             migrationBuilder.DropTable(
                 name: "Svatky");

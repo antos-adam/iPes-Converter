@@ -1,6 +1,7 @@
-﻿using DochazkaAPI.Enums;
-using DochazkaAPI.Models;
+﻿using iPes_Converter.Enums;
+using iPes_Converter.Models;
 using iPes_Converter.ModelsOld;
+using iPes_Converter.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace iPes_Converter.Controllers
             {
                 using (var transaction = _newContext.Database.BeginTransaction())
                 {
-                    DochazkaAPI.Models.Auto newAuto = new Auto();
+                    iPes_Converter.Models.Auto newAuto = new Auto();
                     newAuto.IdAuta = aut.IdAuta;
                     newAuto.Barva = aut.Barva;
                     newAuto.Benzin = aut.Benzin;
@@ -89,14 +90,14 @@ namespace iPes_Converter.Controllers
         }
 
         [HttpGet("Parametry")]
-        public List<DochazkaAPI.Models.Parametry> ParametryConvert()
+        public List<iPes_Converter.Models.Parametry> ParametryConvert()
         {
             List<ModelsOld.Parametry> Parametry = _oldContext.Parametries.ToList();
             foreach (ModelsOld.Parametry par in Parametry)
             {
                 using (var transaction = _newContext.Database.BeginTransaction())
                 {
-                    DochazkaAPI.Models.Parametry newPar = new()
+                    iPes_Converter.Models.Parametry newPar = new()
                     {
                         IdParam = par.IdParam,
                         IdPd = par.IdPd,
@@ -127,14 +128,14 @@ namespace iPes_Converter.Controllers
         }
 
         [HttpGet("Svatky")]
-        public List<DochazkaAPI.Models.Svatek> SvatkyConvert()
+        public List<iPes_Converter.Models.Svatek> SvatkyConvert()
         {
             List<ModelsOld.Svatky> Svatky = _oldContext.Svatkies.ToList();
             foreach (ModelsOld.Svatky svat in Svatky)
             {
                 using (var transaction = _newContext.Database.BeginTransaction())
                 {
-                    DochazkaAPI.Models.Svatek newSvat = new()
+                    iPes_Converter.Models.Svatek newSvat = new()
                     { DatSvat = svat.DatSvat, IdSvatku = svat.IdSvatku, NazSvat = svat.NazSvat };
 
                     _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Svatky] ON");
@@ -154,14 +155,14 @@ namespace iPes_Converter.Controllers
         }
 
         [HttpGet("Udalosti")]
-        public List<DochazkaAPI.Models.Udalost> UdalostiConvert()
+        public List<iPes_Converter.Models.Udalost> UdalostiConvert()
         {
             List<ModelsOld.Udalost> Udalosti = _oldContext.Udalosts.ToList();
             foreach (ModelsOld.Udalost udal in Udalosti)
             {
                 using (var transaction = _newContext.Database.BeginTransaction())
                 {
-                    DochazkaAPI.Models.Udalost newUdal = new()
+                    iPes_Converter.Models.Udalost newUdal = new()
                     { CasIn = udal.CasIn, DatumIn = udal.DatumIn, DnyIn = udal.DnyIn, IdUdalosti = udal.IdUdalosti, MaxCas = udal.MaxCas, MaxDny = (double)udal.MaxDny, MaxOpak = udal.MaxOpak, MinCas = udal.MinCas, MinDny = (double)udal.MinDny, Nazev = udal.Nazev, Prepovol = udal.Prepovol, Preruseni = udal.Preruseni, System = udal.System, TypuTisk = udal.TypuTisk, VypObedy = udal.VypObedy, VypPracdoby = udal.VypPracdoby, Zakladni = udal.Zakladni, Vysvetlivky = udal.Vysvetlivky, ZkrUdal = udal.ZkrUdal };
 
                     _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Udalosti] ON");
@@ -181,14 +182,14 @@ namespace iPes_Converter.Controllers
         }
 
         [HttpGet("Zamestnanci")]
-        public List<DochazkaAPI.Models.Zamestnanec> ZamestnanciConvert()
+        public List<iPes_Converter.Models.Zamestnanec> ZamestnanciConvert()
         {
             List<ModelsOld.Zamest> Zamestnanci = _oldContext.Zamests.ToList();
             foreach (ModelsOld.Zamest zamest in Zamestnanci)
             {
                 using (var transaction = _newContext.Database.BeginTransaction())
                 {
-                    DochazkaAPI.Models.Zamestnanec newZamest = new()
+                    iPes_Converter.Models.Zamestnanec newZamest = new()
                     { IdZam = zamest.IdZam, Denuvazek = (double)zamest.Denuvazek, IdOdbor = zamest.IdOdbor, Jmeno = zamest.Jmeno, ZobrazVKontPritom = zamest.Pr3, NevkladatPauzuObed = zamest.Pr4, NezkracovatPriViceHod = zamest.Pr5, NezobrazVNepritomnosti = zamest.Pr0, Prijmeni = zamest.Prijmeni, Titul = zamest.Titul, TsDaktmob = zamest.TsDaktmob, TsDaktpev = zamest.TsDaktpev, TsEmail = zamest.TsEmail, TsMobil = zamest.TsMobil, TsPevna = zamest.TsPevna, Vyrazen = zamest.Vyrazen };
 
                     _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Zamestnanci] ON");
@@ -223,7 +224,7 @@ namespace iPes_Converter.Controllers
                 int i = 0;
                 foreach (ModelsOld.Rezaut rez in Rezervace)
                 {
-                    DochazkaAPI.Models.Rezauta newRez = new()
+                    iPes_Converter.Models.Rezauta newRez = new()
                     { Cesta = rez.Cesta, Dulezitost = rez.Dulezitost, Duvod = rez.Duvod, IdAuta = rez.IdAuta, IdOdbor = rez.IdOdbor, IdRezerv = rez.IdRezerv, IdRidic = rez.IdRidic, IdSpolc1 = rez.IdSpolc1, IdSpolc2 = rez.IdSpolc2, IdSpolc3 = rez.IdSpolc3, IdSpolc4 = rez.IdSpolc4, IdSpolc5 = rez.IdSpolc5, IdZam = rez.IdZam, OdpRead = rez.OdpRead, Pozadavky = rez.Pozadavky, Poznamky = rez.Poznamky, RezervDo = rez.RezervDo, RezervOd = rez.RezervOd, Stavrez = rez.Stavrez, ZamDele = rez.ZamDele, Zmenaterm = rez.Zmenaterm };
 
                     _newContext.Add(newRez);
@@ -244,14 +245,14 @@ namespace iPes_Converter.Controllers
         [HttpGet("Dochazka")]
         public string DochazkaConvert()
         {
-            List<ModelsOld.Dochazka> Dochazka = _oldContext.Dochazkas.ToList();
+            List<ModelsOld.Dochazka> Dochazka = _oldContext.Dochazkas.Where(d => d.Zacatek > new DateTime(2020, 1, 1)).ToList();
             using (var transaction = _newContext.Database.BeginTransaction())
             {
                 _newContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Dochazka] ON");
                 int i = 0;
                 foreach (ModelsOld.Dochazka doch in Dochazka)
                 {
-                    DochazkaAPI.Models.Dochazka newDoch = new()
+                    iPes_Converter.Models.Dochazka newDoch = new()
                     { 
                         IdDoch = doch.IdDoch, 
                         IdOdbor = doch.IdOdbor, 

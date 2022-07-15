@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DochazkaAPI.Models
+namespace iPes_Converter.Models
 {
     public partial class Parametry
     {

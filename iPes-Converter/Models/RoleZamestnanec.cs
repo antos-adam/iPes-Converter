@@ -1,8 +1,8 @@
-﻿using DochazkaAPI.Enums;
+﻿using iPes_Converter.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DochazkaAPI.Models
+namespace iPes_Converter.Models
 {
     public class RoleZamestnanec
     {

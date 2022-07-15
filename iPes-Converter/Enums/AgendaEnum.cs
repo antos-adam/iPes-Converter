@@ -1,4 +1,4 @@
-﻿namespace DochazkaAPI.Enums
+﻿namespace iPes_Converter.Enums
 {
     public enum AgendaEnum
     {
