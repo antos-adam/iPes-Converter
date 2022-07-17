@@ -70,8 +70,9 @@ namespace iPes_Converter.Migrations
                 name: "Pracdny",
                 columns: table => new
                 {
-                    Rok = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Rok = table.Column<int>(type: "int", nullable: false),
                     Mes01 = table.Column<int>(type: "int", nullable: false),
                     Mes02 = table.Column<int>(type: "int", nullable: false),
                     Mes03 = table.Column<int>(type: "int", nullable: false),
@@ -87,7 +88,7 @@ namespace iPes_Converter.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pracdny", x => x.Rok);
+                    table.PrimaryKey("PK_Pracdny", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(

@@ -177,11 +177,11 @@ namespace iPes_Converter.Migrations
 
             modelBuilder.Entity("iPes_Converter.Models.PracdenRok", b =>
                 {
-                    b.Property<int>("Rok")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Rok"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Mes01")
                         .HasColumnType("int");
@@ -219,7 +219,10 @@ namespace iPes_Converter.Migrations
                     b.Property<int>("Mes12")
                         .HasColumnType("int");
 
-                    b.HasKey("Rok");
+                    b.Property<int>("Rok")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Pracdny");
                 });

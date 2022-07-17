@@ -7,6 +7,7 @@ namespace iPes_Converter.Models
     public partial class PracdenRok
     {
         [Key]
+        public int Id { get; set; }
         public int Rok { get; set; }
         public int Mes01 { get; set; }
         public int Mes02 { get; set; }
